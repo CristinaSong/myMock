@@ -1,113 +1,74 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div class="index">
+    <div v-for="(item, key) in newsListShow" :key="item.index">
+      <news-cell :newsDate="item" :key="key"></news-cell>
+    </div>
   </div>
 </template>
 
 <script>
+import api from "./../axios/api.js";
+import NewsCell from "./NewsCell.vue";
+
 export default {
-  name: 'HelloWorld',
-  data () {
+  name: "index",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      newsListShow: []
+    };
+  },
+  components: {
+    NewsCell
+  },
+  created() {
+    this.setNewsApi();
+  },
+  methods: {
+    setNewsApi () {
+      api.mockHttpPost("/news/index", "type=top&key=123456").then(res => {
+        console.log(res);
+        this.newsListShow = res.articles;
+      });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.topNav {
+  width: 100%;
+  background: #ed4040;
+  position: fixed;
+  top: 0rem;
+  left: 0;
+  z-index: 10;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.simpleNav {
+  width: 100%;
+  line-height: 1rem;
+  overflow: hidden;
+  overflow-x: auto;
+  text-align: center;
+  font-size: 0;
+  font-family: "微软雅黑";
+  white-space: nowrap;
 }
-li {
+.simpleNav::-webkit-scrollbar {
+  height: 0px;
+}
+.simpleNavBar {
   display: inline-block;
-  margin: 0 10px;
+  width: 1.2rem;
+  color: #fff;
+  font-size: 0.3rem;
 }
-a {
-  color: #42b983;
+.navActive {
+  color: #000;
+  border-bottom: 0.05rem solid #000;
+}
+.placeholder {
+  width: 100%;
+  height: 1rem;
 }
 </style>
