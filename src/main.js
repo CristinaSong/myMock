@@ -7,7 +7,7 @@ import router from './router'
 Vue.config.productionTip = false
 
 // 引入mockjs
-require('./mock.js')
+if (process.env.NODE_ENV === 'development') { require('./mock.js') } // 开发环境才使用mock
 
 /* eslint-disable no-new */
 new Vue({
