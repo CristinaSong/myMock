@@ -22,21 +22,21 @@
 </template>
 
 <script>
-export default {
-  name: "NewsCell",
+export default { // TODO
+  name: 'NewsCell',
   props: {
     newsDate: Object
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {},
   methods: {
-    jumpPage: function() {
-      window.location.href = this.newsDate.url;
+    jumpPage: function () {
+      window.location.href = this.newsDate.url
     }
   }
-};
+}
 </script>
 
 <style scoped>

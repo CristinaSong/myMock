@@ -7,31 +7,31 @@
 </template>
 
 <script>
-import api from "./../axios/api.js";
-import NewsCell from "./NewsCell.vue";
+import api from './../axios/api.js';
+import NewsCell from './NewsCell.vue';
 
 export default {
-  name: "index",
-  data() {
+  name: 'index',
+  data () {
     return {
       newsListShow: []
-    };
+    }
   },
   components: {
     NewsCell
   },
-  created() {
-    this.setNewsApi();
+  created () {
+    this.setNewsApi()
   },
   methods: {
     setNewsApi () {
-      api.mockHttpPost("/news/index", "type=top&key=123456").then(res => {
-        console.log(res);
-        this.newsListShow = res.articles;
-      });
+      api.mockHttpPost('/news/index', 'type=top&key=123456').then(res => {
+        console.log(res)
+        this.newsListShow = res.articles
+      })
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
