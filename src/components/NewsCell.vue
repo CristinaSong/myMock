@@ -34,6 +34,8 @@ export default { // TODO
   methods: {
     jumpPage: function () {
       window.location.href = this.newsDate.url
+      let a = 2
+      if (a === 2) a++
     }
   }
 }

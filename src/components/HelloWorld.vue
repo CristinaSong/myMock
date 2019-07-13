@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import api from './../axios/api.js';
-import NewsCell from './NewsCell.vue';
+import api from './../axios/api.js'
+import NewsCell from './NewsCell.vue'
 
 export default {
   name: 'index',
