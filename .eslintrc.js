@@ -180,7 +180,8 @@ module.exports = {
     "space-before-function-paren": [0, "always"],//函数定义时括号前面要不要有空格
     "space-in-parens": [0, "never"],//小括号里面要不要有空格
     "space-infix-ops": 0,//中缀操作符周围要不要有空格
-    "space-return-throw-case": 2,//return throw case后面要不要加空格
+    // "space-return-throw-case": 2,//return throw case后面要不要加空格,已废弃被keyword-spacing取代
+    "keyword-spacing": 1,
     "space-unary-ops": [0, { "words": true, "nonwords": false }],//一元运算符的前/后要不要加空格
     "spaced-comment": 0,//注释风格要不要有空格什么的
     "strict": 2,//使用严格模式
