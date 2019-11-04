@@ -1,74 +1,94 @@
 <template>
-  <div class="index">
-    <div v-for="(item, key) in newsListShow" :key="item.index">
-      <news-cell :newsDate="item" :key="key"></news-cell>
+    <div class="login_bg">
+        <div v-if="wxLogin" class="weChat_login" @click="weChatLogin">
+            <img src="../assets/images/Login_wechat_icon.png" alt="微信登录">
+        </div>
+        <!-- <div v-show="tabLoginWithWeChat"> -->
+        <div v-else>
+            <div id="codeContainer" class="login_with_weChat"></div>
+            <div class="theBtn">
+                <i id="closeBtn" class="iconfont icon-Rectangle"></i>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import api from './../axios/api.js';
-import NewsCell from './NewsCell.vue';
 
 export default {
-    name: 'index',
-    data () {
+    data() {
         return {
-            newsListShow: []
+            // tabLoginWithWeChat: false
+            wxLogin: true
         };
     },
-    components: {
-        NewsCell
-    },
-    created () {
-        this.setNewsApi();
-    },
     methods: {
-        setNewsApi () {
-            api.mockHttpPost('/news/index', 'type=top&key=123456').then(res => {
-                console.log(res);
-                this.newsListShow = res.articles;
+        // 微信登录
+        weChatLogin() {
+            // this.tabLoginWithWeChat = true;
+            this.wxLogin = false;
+            this.$nextTick(()=> {
+                // const obj = new WxLogin({
+                //     id: 'codeContainer',
+                //     appid: 'wx8388fbd5617fed8e',
+                //     scope: 'snsapi_login',
+                //     redirect_uri: encodeURIComponent('https://interactive.gaotu100.com/course/index.html#/login'),
+                //     state: 'STATE',
+                //     style: '',
+                //     href: ''
+                // });
+                const theContainer = document.querySelector('#codeContainer');
+                const theSrcArr = theContainer.children[0].src.split('?');
+                const newSrc = `${theSrcArr[0]}?lang=zh_CN&${theSrcArr[1]}`;
+
+                theContainer.children[0].src = newSrc;
             });
         }
     }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.topNav {
-  width: 100%;
-  background: #ed4040;
-  position: fixed;
-  top: 0rem;
-  left: 0;
-  z-index: 10;
+<style>
+.login_bg{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 428px;
+    height: 100%;
 }
-.simpleNav {
-  width: 100%;
-  line-height: 1rem;
-  overflow: hidden;
-  overflow-x: auto;
-  text-align: center;
-  font-size: 0;
-  font-family: "微软雅黑";
-  white-space: nowrap;
+.weChat_login{
+    width: 43px;
+    height: 43px;
+    margin: 0 auto;
+    margin-top: 18px;
+    cursor: pointer;
 }
-.simpleNav::-webkit-scrollbar {
-  height: 0px;
+.weChat_login img{
+    width: 100%;
+    height: 100%;
 }
-.simpleNavBar {
-  display: inline-block;
-  width: 1.2rem;
-  color: #fff;
-  font-size: 0.3rem;
+.login_with_weChat{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 412px;
+    height: 412px;
+    /* background-color: #ffffff; */
+    box-shadow: 0px 0px 6px 0px
+    #e8e8e8;
+    border-radius: 8px;
+    text-align: center;
 }
-.navActive {
-  color: #000;
-  border-bottom: 0.05rem solid #000;
-}
-.placeholder {
-  width: 100%;
-  height: 1rem;
+.theBtn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 412px;
+    height: 412px;
 }
 </style>
+
